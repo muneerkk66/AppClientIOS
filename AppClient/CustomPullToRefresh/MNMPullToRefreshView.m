@@ -158,8 +158,12 @@
     
     [super layoutSubviews];
     
-    CGSize topSize = [[topLabel_ text] sizeWithFont:[topLabel_ font]];
-    CGSize bottomSize = [[bottomLabel_ text] sizeWithFont:[bottomLabel_ font]];
+    CGSize topSize = [[topLabel_ text] sizeWithAttributes:
+                      @{NSFontAttributeName:
+                            [topLabel_ font]}];
+    CGSize bottomSize = [[bottomLabel_ text] sizeWithAttributes:
+                         @{NSFontAttributeName:
+                               [bottomLabel_ font]}];
     
     CGRect frame = [topLabel_ frame];
     frame.size.width = topSize.width;
