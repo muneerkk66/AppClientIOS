@@ -23,7 +23,7 @@
  */
 @property (nonatomic, readwrite, strong) NSMutableArray *postersDataCollection;
 @property (nonatomic, readwrite, assign) NSUInteger reloads;
-
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 /**
  * Loads the table and restores the PTR view to its initial state
  *
@@ -33,12 +33,19 @@
 @end
 
 @implementation PostViewController
-
+-(void)setUpActivityIndicatorWithStart
+{
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:self.activityIndicator];
+    self.activityIndicator.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+    [self.activityIndicator hidesWhenStopped];
+    [self.activityIndicator startAnimating];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
+    [self setUpActivityIndicatorWithStart];
     //CustomCell setup
     
     self.postCellNib =[UINib nibWithNibName:@"PostCell" bundle:nil];
@@ -100,6 +107,7 @@
     
     self.postersDataCollection = [tempArray mutableCopy];
     [self loadTable];
+    [self.activityIndicator stopAnimating];
        
         
        
